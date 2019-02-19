@@ -6,22 +6,23 @@ FSJS project 2 - List Filter and Pagination
 
 
 
-/***
-   Add your global variables that store the DOM elements you will
-   need to reference and/or manipulate.
 
-   But be mindful of which variables should be global and which
-   should be locally scoped to one of the two main functions you're
-   going to create. A good general rule of thumb is if the variable
-   will only be used inside of a function, then it can be locally
-   scoped to that function.
-
-
-***/
 //create list of students from html
 studentsList = document.querySelectorAll('.student-item');
 
+//create and append search field
+function makeSearch() {
+  const pageHeader = document.querySelector('.page-header');
+  const searchDiv = document.createElement('div');
+  const searchButton = document.createElement('button');
+  const searchField = document.createElement('input');
+  searchDiv.className = "student-search";
+  searchField.placeholder = "Search for students...";
+  searchButton.textContent = "Search";
+  pageHeader.appendChild(searchDiv).appendChild(searchField);
+  searchDiv.appendChild(searchButton);
 
+};
 
 /***
     FX showPage takes 2 parameters: a list of students and a page# to display
@@ -76,13 +77,13 @@ function appendPageLinks(list) {
 function pageSetup(list) {
   showPage(list, 1);
   appendPageLinks(list);
+  makeSearch();
 };
 window.onload = pageSetup(studentsList);
 
 
-// remove active links from pagination and add active to target
-//credit https://stackoverflow.com/questions/38990163/how-can-i-add-and-remove-an-active-class-to-an-element-in-pure-javascript/38990288
-function removeActive() {
+// remove active link from pagination
+/*
   var el = document.querySelectorAll(".active");
     if(el){
     el.classList.remove('.active')
@@ -90,7 +91,7 @@ function removeActive() {
     console.log('no el');
   }
 
-};
+*/
 
 
 
@@ -104,5 +105,3 @@ for(let i = 1; i < aTags.length; i++) {
 
   });
 }
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
