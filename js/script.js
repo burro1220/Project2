@@ -9,13 +9,15 @@ FSJS project 2 - List Filter and Pagination
 
 //create list of students from html
 studentsList = document.querySelectorAll('.student-item');
+const searchButton = document.createElement('button');
+const searchField = document.createElement('input');
+const searchText = searchField.textContent;
+const aTags = document.querySelectorAll('a');
 
-//create and append search field
+//create and append search field & button
 function makeSearch() {
   const pageHeader = document.querySelector('.page-header');
   const searchDiv = document.createElement('div');
-  const searchButton = document.createElement('button');
-  const searchField = document.createElement('input');
   searchDiv.className = "student-search";
   searchField.placeholder = "Search for students...";
   searchButton.textContent = "Search";
@@ -23,7 +25,24 @@ function makeSearch() {
   searchDiv.appendChild(searchButton);
 
 };
+//create search functionality
+function search(str, list) {
+  for(i=0; i < list.length; i++){
+    let student = list[i];
+    let names = document.querySelectorAll('h3');
+    let name = names[i].textContent;
+    if(name.includes(str)) {
+      console.log(name)
+    } else {
+      console.log('ho');
+    }
+  }
+};
 
+//call search when button is clicked
+searchButton.addEventListener('click', () => {
+  search(searchText, studentsList);
+});
 /***
     FX showPage takes 2 parameters: a list of students and a page# to display
     10 students at a time
@@ -83,25 +102,25 @@ window.onload = pageSetup(studentsList);
 
 
 // remove active link from pagination
-/*
-  var el = document.querySelectorAll(".active");
-    if(el){
-    el.classList.remove('.active')
-  } else {
-    console.log('no el');
-  }
-
-*/
+function removeActive(){
+  for(let i=0; i < aTags.length; i++){
+    aTags[i].classList.remove('active');
+  };
+};
 
 
 
-//set click listener on a tags
-aTags = document.querySelectorAll('a');
-for(let i = 1; i < aTags.length; i++) {
+
+
+
+//loop throught aTags and set click listener
+for(let i = 0; i < aTags.length; i++) {
   aTags[i].addEventListener('click', (e) => {
-    showPage(studentsList, i);
     removeActive();
-    e.target.className = 'active';
+    showPage(studentsList, i+1);
+    //set active class
+    e.target.className = "active";
+    });
 
-  });
+
 }
