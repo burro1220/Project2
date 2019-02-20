@@ -7,13 +7,13 @@ FSJS project 2 - List Filter and Pagination
 
 //create list of students from html
 studentsList = document.querySelectorAll('.student-item');
+//create global variables
 const searchButton = document.createElement('button');
 const searchField = document.createElement('input');
 const searchDiv = document.createElement('div');
 const error = document.createElement('h3');
 
 //create and append search field & button
-
 function makeSearch() {
   const pageHeader = document.querySelector('.page-header');
   searchDiv.className = "student-search";
@@ -25,7 +25,7 @@ function makeSearch() {
 };
 
 
-//call search when button is clicked
+//create and call search when button is clicked
 searchField.addEventListener('keyup', (e) => {
   const searchText = e.target.value;
   function search(str, list,){
@@ -41,9 +41,11 @@ searchField.addEventListener('keyup', (e) => {
         hidden.push(student);
         }
     }
+    //check length of hidden array and if all students are hidden return error
     if (hidden.length == list.length) {
       makeError();
     } else {
+      //remove error
       if (document.querySelector('.error')) {
       searchDiv.removeChild(error);
       }
@@ -55,7 +57,6 @@ searchField.addEventListener('keyup', (e) => {
 
 //if no students append this error div
 function makeError(){
-
   error.textContent = "There are no students by that name.";
   error.className = "error"
   searchDiv.appendChild(error);
@@ -77,9 +78,6 @@ function showPage(list, page) {
     }
   };
 };
-
-
-
 /***
    Create the `appendPageLinks function` to generate, append, and add
    functionality to the pagination buttons.
@@ -107,16 +105,6 @@ function appendPageLinks(list) {
     ul.appendChild(li)
   }
 };
-
-
-//setup for initial view
-function pageSetup(list) {
-  showPage(list, 1);
-  appendPageLinks(list);
-  makeSearch();
-};
-
-
 // remove active link from pagination
 function removeActive(){
   for(let i=0; i < aTags.length; i++){
@@ -124,11 +112,17 @@ function removeActive(){
   };
 };
 
-
+//setup for initial view
+function pageSetup(list) {
+  showPage(list, 1);
+  appendPageLinks(list);
+  makeSearch();
+};
+//prepare page -- IS THIS THE BEST WAY TO DO THIS?????????
 window.onload = pageSetup(studentsList);
 
-
-
+//IF I MOVE THIS CODE TO TOP THEN EVENT LISTENERS DON'T GET SET???
+//HAVE TO SET aTags AFTER PAGE SETUP HAS COMPLETED...?
 const aTags = document.querySelectorAll('a');
 //loop throught aTags and set click listener
 for(let i = 0; i < aTags.length; i++) {
@@ -138,6 +132,4 @@ for(let i = 0; i < aTags.length; i++) {
     //set active class
     e.target.className = "active";
     });
-
-
-}
+};
