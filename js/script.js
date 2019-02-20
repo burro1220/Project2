@@ -9,12 +9,13 @@ FSJS project 2 - List Filter and Pagination
 studentsList = document.querySelectorAll('.student-item');
 const searchButton = document.createElement('button');
 const searchField = document.createElement('input');
+const searchDiv = document.createElement('div');
+const error = document.createElement('h3');
 
 //create and append search field & button
 
 function makeSearch() {
   const pageHeader = document.querySelector('.page-header');
-  const searchDiv = document.createElement('div');
   searchDiv.className = "student-search";
   searchField.placeholder = "Search for students...";
   searchButton.textContent = "Search";
@@ -28,6 +29,7 @@ function makeSearch() {
 searchField.addEventListener('keyup', (e) => {
   const searchText = e.target.value;
   function search(str, list,){
+    let hidden = [];
     for(i=0; i < list.length; i++){
       let student = list[i];
       let names = document.querySelectorAll('h3');
@@ -35,7 +37,15 @@ searchField.addEventListener('keyup', (e) => {
       if(name.includes(searchText)) {
         student.style.display = 'block';
       } else {
-        student.style.display = 'none'
+        student.style.display = 'none';
+        hidden.push(student);
+        }
+    }
+    if (hidden.length == list.length) {
+      makeError();
+    } else {
+      if (document.querySelector('.error')) {
+      searchDiv.removeChild(error);
       }
     }
   };
@@ -43,6 +53,13 @@ searchField.addEventListener('keyup', (e) => {
 
 });
 
+//if no students append this error div
+function makeError(){
+
+  error.textContent = "There are no students by that name.";
+  error.className = "error"
+  searchDiv.appendChild(error);
+};
 /***
     FX showPage takes 2 parameters: a list of students and a page# to display
     10 students at a time
