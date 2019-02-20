@@ -5,16 +5,15 @@ FSJS project 2 - List Filter and Pagination
 
 
 
-
-
 //create list of students from html
 studentsList = document.querySelectorAll('.student-item');
+//load initial view
+
 const searchButton = document.createElement('button');
 const searchField = document.createElement('input');
 const searchText = searchField.textContent;
-const aTags = document.querySelectorAll('a');
-
 //create and append search field & button
+
 function makeSearch() {
   const pageHeader = document.querySelector('.page-header');
   const searchDiv = document.createElement('div');
@@ -26,13 +25,14 @@ function makeSearch() {
 
 };
 //create search functionality
+
 function search(str, list) {
   for(i=0; i < list.length; i++){
     let student = list[i];
     let names = document.querySelectorAll('h3');
     let name = names[i].textContent;
     if(name.includes(str)) {
-      console.log(name)
+      console.log(typeof name);
     } else {
       console.log('ho');
     }
@@ -43,6 +43,7 @@ function search(str, list) {
 searchButton.addEventListener('click', () => {
   search(searchText, studentsList);
 });
+
 /***
     FX showPage takes 2 parameters: a list of students and a page# to display
     10 students at a time
@@ -98,7 +99,6 @@ function pageSetup(list) {
   appendPageLinks(list);
   makeSearch();
 };
-window.onload = pageSetup(studentsList);
 
 
 // remove active link from pagination
@@ -109,10 +109,11 @@ function removeActive(){
 };
 
 
+window.onload = pageSetup(studentsList);
 
 
 
-
+const aTags = document.querySelectorAll('a');
 //loop throught aTags and set click listener
 for(let i = 0; i < aTags.length; i++) {
   aTags[i].addEventListener('click', (e) => {
