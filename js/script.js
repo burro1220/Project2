@@ -7,11 +7,9 @@ FSJS project 2 - List Filter and Pagination
 
 //create list of students from html
 studentsList = document.querySelectorAll('.student-item');
-//load initial view
-
 const searchButton = document.createElement('button');
 const searchField = document.createElement('input');
-const searchText = searchField.textContent;
+
 //create and append search field & button
 
 function makeSearch() {
@@ -24,24 +22,25 @@ function makeSearch() {
   searchDiv.appendChild(searchButton);
 
 };
-//create search functionality
 
-function search(str, list) {
-  for(i=0; i < list.length; i++){
-    let student = list[i];
-    let names = document.querySelectorAll('h3');
-    let name = names[i].textContent;
-    if(name.includes(str)) {
-      console.log(typeof name);
-    } else {
-      console.log('ho');
-    }
-  }
-};
 
 //call search when button is clicked
-searchButton.addEventListener('click', () => {
+searchField.addEventListener('keyup', (e) => {
+  const searchText = e.target.value;
+  function search(str, list,){
+    for(i=0; i < list.length; i++){
+      let student = list[i];
+      let names = document.querySelectorAll('h3');
+      let name = names[i].textContent;
+      if(name.includes(searchText)) {
+        student.style.display = 'block';
+      } else {
+        student.style.display = 'none'
+      }
+    }
+  };
   search(searchText, studentsList);
+
 });
 
 /***
