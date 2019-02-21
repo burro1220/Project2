@@ -25,6 +25,43 @@ function makeSearch() {
 };
 
 
+//create and call search when button is clicked
+searchField.addEventListener('keyup', (e) => {
+  const searchText = e.target.value;
+  function search(str, list,){
+    for(i=0; i < list.length; i++){
+      let student = list[i];
+      let names = document.querySelectorAll('h3');
+      let name = names[i].textContent;
+      if(name.includes(searchText)) {
+        student.className = 'student-item cf show';
+      } else {
+        student.className = 'student-item cf hide';
+      }
+
+    }
+    let notMatching = document.querySelectorAll('.hide');
+    console.log(notMatching);
+    let matches = document.querySelectorAll('.show');
+    //show matches
+    showPage(matches, 1);
+    appendPageLinks(matches);
+    console.log(matches);
+    //check length of hidden array and if all students are hidden return error
+    if (matches.length == 0) {
+      makeError();
+    } else {
+      //remove error
+      if (document.querySelector('.error')) {
+      searchDiv.removeChild(error);
+
+      }
+    }
+
+  };
+  search(searchText, studentsList);
+
+});
 
 //if no students append this error div
 function makeError(){
@@ -104,35 +141,3 @@ for(let i = 0; i < aTags.length; i++) {
     e.target.className = "active";
     });
 };
-//create and call search when button is clicked
-searchField.addEventListener('keyup', (e) => {
-  const searchText = e.target.value;
-  let matches = [];
-  function search(str, list,){
-    for(i=0; i < list.length; i++){
-      let student = list[i];
-      let names = document.querySelectorAll('h3');
-      let name = names[i].textContent;
-      if(name.includes(searchText)) {
-        matches.push(student);
-      };
-      console.log(matches);
-    }
-    //show matches
-    showPage(matches, 1);
-    appendPageLinks(matches);
-    //check length of hidden array and if all students are hidden return error
-    if (matches.length == 0) {
-      makeError();
-    } else {
-      //remove error
-      if (document.querySelector('.error')) {
-      searchDiv.removeChild(error);
-
-      }
-    }
-
-  };
-  search(searchText, studentsList);
-
-});
