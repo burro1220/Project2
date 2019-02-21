@@ -41,12 +41,16 @@ searchField.addEventListener('keyup', (e) => {
 
     }
     let notMatching = document.querySelectorAll('.hide');
-    console.log(notMatching);
+    for(i=0; i<notMatching.length; i++){
+      notMatching[i].style.display = 'none';
+    };
     let matches = document.querySelectorAll('.show');
+    const aTags = document.querySelector('a');
+
+
     //show matches
     showPage(matches, 1);
     appendPageLinks(matches);
-    console.log(matches);
     //check length of hidden array and if all students are hidden return error
     if (matches.length == 0) {
       makeError();
@@ -91,6 +95,16 @@ function showPage(list, page) {
    functionality to the pagination buttons.
 ***/
 function appendPageLinks(list) {
+  //if already pagination remove it
+  const aTags = document.querySelectorAll('a');
+
+  if (aTags.length > 0) {
+    for (i=0; i<aTags.length; i++) {
+    console.log(aTags[i].parentNode())
+    
+    }
+  }
+
   // determine number of pages needed
   const numPages = Math.ceil(list.length/10);
   // set node reference for appending div
