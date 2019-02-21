@@ -45,12 +45,22 @@ searchField.addEventListener('keyup', (e) => {
       notMatching[i].style.display = 'none';
     };
     let matches = document.querySelectorAll('.show');
-    const aTags = document.querySelector('a');
 
 
     //show matches
     showPage(matches, 1);
     appendPageLinks(matches);
+    // set listeners on page links
+    const aTags = document.querySelectorAll('a');
+    //loop throught aTags and set click listener
+    for(let i = 0; i < aTags.length; i++) {
+      aTags[i].addEventListener('click', (e) => {
+        showPage(studentsList, i+1);
+        removeActive();
+        //set active class
+        e.target.className = "active";
+        });
+    };
     //check length of hidden array and if all students are hidden return error
     if (matches.length == 0) {
       makeError();
@@ -95,20 +105,16 @@ function showPage(list, page) {
    functionality to the pagination buttons.
 ***/
 function appendPageLinks(list) {
+  const page = document.querySelector('div.page')
   //if already pagination remove it
-  const aTags = document.querySelectorAll('a');
+  const pagination = document.querySelector('.pagination');
+  if (pagination) {
+    page.removeChild(pagination);
+  };
 
-  if (aTags.length > 0) {
-    for (i=0; i<aTags.length; i++) {
-    console.log(aTags[i].parentNode())
-    
-    }
-  }
 
   // determine number of pages needed
   const numPages = Math.ceil(list.length/10);
-  // set node reference for appending div
-  const page = document.querySelector('div.page');
   //create new div to hold pagination numbers
   const div = document.createElement('div');
   //set div className to Pagination
