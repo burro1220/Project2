@@ -54,7 +54,8 @@ searchField.addEventListener('keyup', (e) => {
     const aTags = document.querySelectorAll('a');
     //loop throught aTags and set click listener
     for(let i = 0; i < aTags.length; i++) {
-      aTags[i].addEventListener('click', (e) => {
+      const oldAtags = document.querySelectorAll('a');
+      oldAtags[i].addEventListener('click', (e) => {
         showPage(studentsList, i+1);
         removeActive();
         //set active class
